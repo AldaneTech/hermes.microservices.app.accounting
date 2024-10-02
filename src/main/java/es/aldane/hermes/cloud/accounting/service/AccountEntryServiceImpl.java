@@ -1,0 +1,106 @@
+package es.aldane.hermes.cloud.accounting.service;
+
+import es.aldane.hermes.cloud.accounting.mapper.AccountEntryMapper;
+import es.aldane.hermes.cloud.accounting.repository.db.AccountEntryDbRepository;
+import es.aldane.hermes.cloud.accounting.repository.db.WalletDbRepository;
+import es.aldane.hermes.cloud.accounting.repository.db.entity.AccountEntryDb;
+import es.aldane.hermes.cloud.accounting.service.exception.AccountEntryServiceException;
+import es.aldane.hermes.cloud.accounting_api_server_java.model.AccountEntry;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class AccountEntryServiceImpl implements AccountEntryService {
+
+    private final AccountEntryDbRepository accountEntryDbRepository;
+    private final WalletDbRepository walletDbRepository;
+    private final AccountEntryMapper accountEntryMapper;
+
+    public AccountEntryServiceImpl(AccountEntryDbRepository accountEntryDbRepository, WalletDbRepository walletDbRepository, AccountEntryMapper accountEntryMapper) {
+        this.accountEntryDbRepository = accountEntryDbRepository;
+        this.walletDbRepository = walletDbRepository;
+        this.accountEntryMapper = accountEntryMapper;
+    }
+
+    @Override
+    public List<AccountEntry> getAccountEntries(List<String> statesIds) {
+        try {
+            var accountEntrysList = accountEntryDbRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+            return accountEntryMapper.accountEntryDbListToAccountEntryList(accountEntrysList);
+        } catch (Exception e) {
+            System.out.println("Error obtaining account entries");
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public AccountEntry getAccountEntryById(Long accountEntryId) {
+        try {
+            var accountEntry = accountEntryDbRepository.findById(accountEntryId).orElse(null);
+            return accountEntryMapper.accountEntryDbToAccountEntry(accountEntry);
+        } catch (Exception e) {
+            System.out.println("Error obtaining account entry with id: " + accountEntryId);
+            return null;
+        }
+    }
+
+    @Override
+    public AccountEntry createAccountEntry(AccountEntry accountEntry) {
+        try {
+            var accountEntrySaved = accountEntryDbRepository.save(accountEntryMapper.accountEntryToAccountEntryDb(accountEntry));
+            updateBalanceWallet(accountEntrySaved);
+            return accountEntryMapper.accountEntryDbToAccountEntry(accountEntrySaved);
+        } catch (Exception e) {
+            System.out.println("Error creating account entry");
+            return null;
+        }
+    }
+
+    @Override
+    public boolean deleteAccountEntry(Long id) {
+        try {
+            var accountEntry = accountEntryDbRepository.findById(id).orElse(null);
+            if (accountEntry != null) {
+                accountEntry.setAmount(accountEntry.getAmount() * -1);
+                updateBalanceWallet(accountEntry);
+                accountEntryDbRepository.deleteById(id);
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("Error deleting account entry with id: " + id);
+        }
+        return false;
+    }
+
+    @Override
+    public AccountEntry updateAccountEntry(AccountEntry accountEntry) {
+        try {
+            var accountEntryDb = accountEntryDbRepository.findById(accountEntry.getId()).orElse(null);
+            if (accountEntryDb != null) {
+                accountEntryDb.setAmount(accountEntryDb.getAmount() * -1);
+                updateBalanceWallet(accountEntryDb);
+                accountEntryDb.setComment(accountEntry.getComment());
+                accountEntryDb.setAmount(accountEntry.getAmount());
+                var accountEntrySaved = accountEntryDbRepository.save(accountEntryDb);
+                updateBalanceWallet(accountEntrySaved);
+                return accountEntryMapper.accountEntryDbToAccountEntry(accountEntrySaved);
+            }
+        } catch (Exception e) {
+            System.out.println("Error updating account entry with id: " + accountEntry.getId());
+        }
+        return null;
+    }
+
+    private void updateBalanceWallet(AccountEntryDb accountEntry) {
+        var wallet = walletDbRepository.findById(accountEntry.getWallet().getId()).orElse(null);
+        if (wallet != null) {
+            wallet.setBudget(wallet.getBudget() + accountEntry.getAmount());
+            walletDbRepository.save(wallet);
+        } else {
+            throw new AccountEntryServiceException("There is no wallet for the acount entry with id: " + accountEntry.getId());
+        }
+    }
+}

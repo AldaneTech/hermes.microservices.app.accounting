@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <!--        <File name="LogToFile" fileName="logs/@project.artifactId@.log">-->
+        <!--            <PatternLayout>-->
+        <!--                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>-->
+        <!--            </PatternLayout>-->
+        <!--        </File>-->
+    </Appenders>
+    <Loggers>
+        <Logger name="es.indra" level="${env:log.level.indra}" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="org.springframework.boot" level="${env:log.level.spring}" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="org.hibernate" level="${env:log.level.hibernate}" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="es.indra.horus.cloud.accounting.repository" level="${env:log.level.indra.repository}"
+                additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="es.indra.horus.cloud.accounting.messaging" level="${env:log.level.indra.messaging}"
+                additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Root level="${env:log.level.root}">
+            <AppenderRef ref="LogToConsole"/>
+            <!--            <AppenderRef ref="LogToFile"/>-->
+        </Root>
+    </Loggers>
+</Configuration>
