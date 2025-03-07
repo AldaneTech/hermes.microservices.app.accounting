@@ -11,7 +11,7 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="es.indra" level="INFO" additivity="false">
+        <Logger name="es.aldane" level="INFO" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
         <Logger name="org.springframework.boot" level="INFO" additivity="false">
@@ -20,10 +20,10 @@
         <Logger name="org.hibernate" level="INFO" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <Logger name="es.indra.horus.cloud.accounting.repository" level="INFO" additivity="false">
+        <Logger name="es.aldane.hermes.cloud.accounting.repository" level="INFO" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <Logger name="es.indra.horus.cloud.accounting.messaging" level="INFO" additivity="false">
+        <Logger name="es.aldane.hermes.cloud.accounting.messaging" level="INFO" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
         <Root level="INFO">

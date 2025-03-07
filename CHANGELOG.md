@@ -9,6 +9,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [X.Y.Z] yyyy-mm-dd
 - Versión inicial
-
-[Unreleased]: https://bitbucket.mova.indra.es/projects/CCTRITSH77/repos/horus.microservices.app.template-java/browse
-[X.Y.Z]: https://bitbucket.mova.indra.es/projects/CCTRITSH77/repos/horus.microservices.app.template-java/browse?at=refs%2Ftags%2FX.Y.Z

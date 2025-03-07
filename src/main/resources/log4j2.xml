@@ -11,7 +11,7 @@
         <!--        </File>-->
     </Appenders>
     <Loggers>
-        <Logger name="es.indra" level="${env:log.level.indra}" additivity="false">
+        <Logger name="es.aldane" level="${env:log.level.aldane}" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
         <Logger name="org.springframework.boot" level="${env:log.level.spring}" additivity="false">
@@ -20,11 +20,11 @@
         <Logger name="org.hibernate" level="${env:log.level.hibernate}" additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <Logger name="es.indra.horus.cloud.accounting.repository" level="${env:log.level.indra.repository}"
+        <Logger name="es.aldane.hermes.cloud.accounting.repository" level="${env:log.level.aldane.repository}"
                 additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <Logger name="es.indra.horus.cloud.accounting.messaging" level="${env:log.level.indra.messaging}"
+        <Logger name="es.aldane.horus.cloud.accounting.messaging" level="${env:log.level.aldane.messaging}"
                 additivity="false">
             <AppenderRef ref="LogToConsole"/>
         </Logger>
