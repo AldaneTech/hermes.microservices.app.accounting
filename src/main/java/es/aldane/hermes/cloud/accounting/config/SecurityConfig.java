@@ -1,7 +1,8 @@
 package es.aldane.hermes.cloud.accounting.config;
 
 import es.aldane.hermes.cloud.accounting.config.jwt.JwtFilter;
-import es.aldane.hermes.cloud.accounting.controller.UserDetailsServiceImpl;
+import es.aldane.hermes.cloud.accounting.service.AccountEntryTypeServiceImpl;
+import es.aldane.hermes.cloud.accounting.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Permitir solicitudes OPTIONS
-                .antMatchers("/login", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .antMatchers("/login", "/createUser", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

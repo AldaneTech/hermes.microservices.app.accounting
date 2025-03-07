@@ -1,11 +1,9 @@
-package es.aldane.hermes.cloud.accounting.controller;
+package es.aldane.hermes.cloud.accounting.service;
 
 import es.aldane.hermes.cloud.accounting.repository.db.UserDbRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,4 +27,3 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
 }
-

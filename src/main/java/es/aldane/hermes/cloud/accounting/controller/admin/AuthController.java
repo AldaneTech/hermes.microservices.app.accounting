@@ -1,7 +1,7 @@
 package es.aldane.hermes.cloud.accounting.controller.admin;
 
 import es.aldane.hermes.cloud.accounting.config.jwt.JwtUtil;
-import es.aldane.hermes.cloud.accounting.controller.UserDetailsServiceImpl;
+import es.aldane.hermes.cloud.accounting.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -31,6 +31,9 @@ public class WalletDb {
     @Column(name = "last_modification")
     private LocalDateTime lastModification;
 
+    @Column(name = "creation_date")
+    private LocalDateTime creation_date;
+
     public Float getBudget() {
         return budget;
     }
@@ -85,5 +88,13 @@ public class WalletDb {
 
     public void setLastModification(LocalDateTime lastModification) {
         this.lastModification = lastModification;
+    }
+
+    public LocalDateTime getCreation_date() {
+        return creation_date;
+    }
+
+    public void setCreation_date(LocalDateTime creation_date) {
+        this.creation_date = creation_date;
     }
 }

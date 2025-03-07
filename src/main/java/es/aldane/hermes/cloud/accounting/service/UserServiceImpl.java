@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setLastAccess(OffsetDateTime.now());
+            user.setRecordDate(OffsetDateTime.now());
             var userSaved = userDbRepository.save(userMapper.userToUserDb(user));
             return userMapper.userDbToUser(userSaved);
         } catch (DataIntegrityViolationException ex) {

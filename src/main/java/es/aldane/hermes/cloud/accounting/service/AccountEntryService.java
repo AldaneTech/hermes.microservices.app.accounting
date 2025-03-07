@@ -15,4 +15,6 @@ public interface AccountEntryService {
     boolean deleteAccountEntry(Long id);
 
     AccountEntry updateAccountEntry(AccountEntry accountEntry);
+
+    List<AccountEntry> getAccountEntryByWalletId(Long walletId);
 }

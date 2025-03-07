@@ -48,9 +48,27 @@ public class AccountEntryServiceImpl implements AccountEntryService {
     }
 
     @Override
+    public List<AccountEntry> getAccountEntryByWalletId(Long walletId) {
+        try {
+            var accountEntry = accountEntryDbRepository.findByWallet_IdOrderByDateDesc(walletId);
+            return accountEntryMapper.accountEntryDbListToAccountEntryList(accountEntry);
+        } catch (Exception e) {
+            System.out.println("Error obtaining account entry with id: " + walletId);
+            return null;
+        }
+    }
+
+    @Override
     public AccountEntry createAccountEntry(AccountEntry accountEntry) {
         try {
-            var accountEntrySaved = accountEntryDbRepository.save(accountEntryMapper.accountEntryToAccountEntryDb(accountEntry));
+            var accountEntryDb = accountEntryMapper.accountEntryToAccountEntryDb(accountEntry);
+            if (accountEntry.getBrand() == null || accountEntry.getBrand().getId() == null) {
+                accountEntryDb.setBrand(null);
+            }
+            if (accountEntry.getStore() == null || accountEntry.getStore().getId() == null) {
+                accountEntryDb.setStore(null);
+            }
+            var accountEntrySaved = accountEntryDbRepository.save(accountEntryDb);
             updateBalanceWallet(accountEntrySaved);
             return accountEntryMapper.accountEntryDbToAccountEntry(accountEntrySaved);
         } catch (Exception e) {

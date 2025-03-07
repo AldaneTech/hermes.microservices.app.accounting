@@ -37,6 +37,12 @@ public class AccountEntryController implements AccountEntryApi {
     }
 
     @Override
+    public ResponseEntity<List<AccountEntry>> getAccountEntryByWalletId(Long walletId) {
+        var states = accountEntryService.getAccountEntryByWalletId(walletId);
+        return ResponseEntity.ok(states);
+    }
+
+    @Override
     public ResponseEntity<List<AccountEntry>> getAccountEntries() {
         var states = accountEntryService.getAccountEntries(new ArrayList<>());
         return ResponseEntity.ok(states);
