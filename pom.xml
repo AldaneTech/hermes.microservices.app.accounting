@@ -58,7 +58,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/DAXlTO/hermes.microservices.libraries.accounting-api-server-java</url>
+            <url>https://maven.pkg.github.com/AldaneTech/hermes.microservices.libraries.accounting-api-server-java</url>
         </repository>
     </repositories>
 </project>
