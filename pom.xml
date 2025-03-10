@@ -60,5 +60,10 @@
             <name>GitHub Packages</name>
             <url>https://maven.pkg.github.com/AldaneTech/hermes.microservices.libraries.accounting-api-server-java</url>
         </repository>
+        <repository>
+            <id>github-parent</id>
+            <name>GitHub Packages - Microservice POM</name>
+            <url>https://maven.pkg.github.com/AldaneTech/hermes.microservices.app.microservice-pom</url>
+        </repository>
     </repositories>
 </project>

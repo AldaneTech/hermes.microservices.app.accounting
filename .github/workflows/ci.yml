@@ -36,6 +36,11 @@ jobs:
           <settings>
             <servers>
               <server>
+                <id>github-parent</id>
+                <username>${{ github.actor }}</username>
+                <password>${{ secrets.GITHUB_TOKEN }}</password>
+              </server>
+              <server>
                 <id>github</id>
                 <username>${{ github.actor }}</username>
                 <password>${{ secrets.GITHUB_TOKEN }}</password>
@@ -43,6 +48,7 @@ jobs:
             </servers>
           </settings>
           EOF
+
 
       - name: Build and test with Maven
         run: mvn clean install -DskipTests=false
